@@ -1,0 +1,18 @@
+/* Minimal document base. The page surface is painted by `.uf-root` in
+   src/marketing/unframe/unframe.css; here we only zero the document margins
+   and set Unframe's black behind the app so there is no flash before the
+   React tree mounts. */
+html,
+body {
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  background: #000000; /* --uf-black */
+  color-scheme: dark;
+}
+
+body {
+  min-height: 100svh;
+}

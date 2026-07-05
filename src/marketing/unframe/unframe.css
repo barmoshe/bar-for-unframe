@@ -1,0 +1,776 @@
+/* =============================================================
+   unframe.css — Unframe's visual language, read live off unframe.ai
+   (2026-07-05), rebuilt for Bar's application page.
+
+   Tokens from their computed styles:
+   - Poppins 600 display (h1 72px / lh 1.15 / ls -3px), 400 body 16px
+   - blacks #000000 / #0f0f0f / ink #191919; whites #ffffff / #f8f8f8
+   - THE gradient: 90deg, #00C5EA 0%, #3231DD 20%, #7800FF 40%,
+     #DF00B4 60%, #FF0080 80%, #FF9600 100%
+   - white pill CTAs (radius 999, 10px 18px), outlined pill secondary
+   - hairline-border white cards, 16px radius, on #f8f8f8/#fff
+   - thin gradient underline bars, gradient-border numbered badges
+   Scoped under `.uf-root`; overrides the local .mp-root base.
+   ============================================================= */
+
+.uf-root {
+  --uf-black: #000000;
+  --uf-coal: #0f0f0f;
+  --uf-ink: #191919;
+  --uf-white: #ffffff;
+  --uf-paper: #f8f8f8;
+  --uf-line: #e6e6e6;
+  --uf-line-dark: rgba(255, 255, 255, 0.14);
+  --uf-mute: #5c5c5c;
+  --uf-mute-dark: #a8a8a8;
+  --uf-grad: linear-gradient(
+    90deg,
+    #00c5ea 0%,
+    #3231dd 20%,
+    #7800ff 40%,
+    #df00b4 60%,
+    #ff0080 80%,
+    #ff9600 100%
+  );
+  --uf-font: var(--font-uf), 'Poppins', system-ui, sans-serif;
+  --uf-maxw: 1180px;
+  --uf-pad: clamp(1.25rem, 5vw, 3rem);
+  --uf-radius: 16px;
+
+  background: var(--uf-black);
+  color: var(--uf-ink);
+  font-family: var(--uf-font);
+  font-size: 16px;
+  line-height: 1.6;
+  font-weight: 400;
+}
+
+/* The local .mp-root base paints anchors (`.mp-root a` and its :hover are
+   class+element specificity); Unframe's language colors links per-component,
+   so default every anchor, hover included, back to its surrounding ink. */
+.uf-root a,
+.uf-root a:hover {
+  color: inherit;
+}
+
+.uf-root ::selection {
+  background: #7800ff;
+  color: #ffffff;
+}
+
+/* ── Skip link ─────────────────────────────────────────────── */
+.uf-skip {
+  position: absolute;
+  left: -9999px;
+  top: 0;
+  z-index: 100;
+  background: var(--uf-white);
+  color: var(--uf-ink);
+  padding: 10px 18px;
+  border-radius: 999px;
+  font-weight: 600;
+}
+.uf-skip:focus-visible {
+  left: 12px;
+  top: 12px;
+}
+
+/* ── Buttons: their pills ──────────────────────────────────── */
+.uf-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  border-radius: 999px;
+  padding: 12px 22px;
+  font-family: var(--uf-font);
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 1.2;
+  text-decoration: none;
+  transition: transform 0.18s ease, background-color 0.18s ease,
+    color 0.18s ease, border-color 0.18s ease;
+}
+.uf-btn:hover {
+  transform: translateY(-1px);
+}
+.uf-btn--sm {
+  padding: 9px 17px;
+  font-size: 14.5px;
+}
+.uf-root .uf-btn--white,
+.uf-root .uf-btn--white:hover {
+  background: var(--uf-white);
+  color: var(--uf-ink);
+}
+.uf-root .uf-btn--white:hover {
+  background: #ececec;
+}
+.uf-root .uf-btn--dark,
+.uf-root .uf-btn--dark:hover {
+  background: var(--uf-ink);
+  color: var(--uf-white);
+}
+.uf-root .uf-btn--dark:hover {
+  background: #2e2e2e;
+}
+.uf-root .uf-btn--ghost,
+.uf-root .uf-btn--ghost:hover {
+  background: transparent;
+  color: var(--uf-white);
+  border: 1px solid rgba(255, 255, 255, 0.38);
+}
+.uf-root .uf-btn--ghost:hover {
+  border-color: rgba(255, 255, 255, 0.85);
+}
+.uf-root a:focus-visible,
+.uf-root button:focus-visible {
+  outline: 2px solid #00c5ea;
+  outline-offset: 3px;
+}
+
+/* ── Announcement bar ──────────────────────────────────────── */
+.uf-announce {
+  background: var(--uf-coal);
+  color: #dedede;
+  font-size: 13px;
+  text-align: center;
+  padding: 9px var(--uf-pad);
+}
+.uf-announce p {
+  margin: 0;
+}
+.uf-announce a {
+  color: var(--uf-white);
+  font-weight: 500;
+  text-decoration: none;
+  margin-left: 10px;
+}
+.uf-announce a:hover {
+  text-decoration: underline;
+}
+
+/* ── Nav: their light strip over the black hero ────────────── */
+.uf-nav {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background: rgba(245, 245, 245, 0.94);
+  backdrop-filter: blur(10px);
+}
+.uf-nav__inner {
+  max-width: var(--uf-maxw);
+  margin: 0 auto;
+  padding: 12px var(--uf-pad);
+  display: flex;
+  align-items: center;
+  gap: 22px;
+}
+.uf-brand {
+  font-size: 21px;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  color: var(--uf-ink);
+  text-decoration: none;
+  white-space: nowrap;
+}
+.uf-brand__b {
+  background: var(--uf-grad);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+.uf-brand__for {
+  font-weight: 400;
+  color: var(--uf-mute);
+}
+.uf-nav__links {
+  display: flex;
+  gap: 22px;
+  margin-inline: auto;
+}
+.uf-nav__link {
+  color: var(--uf-ink);
+  text-decoration: none;
+  font-size: 15px;
+}
+.uf-nav__link:hover {
+  color: #000;
+  text-decoration: underline;
+  text-underline-offset: 5px;
+}
+
+/* ── Hero ──────────────────────────────────────────────────── */
+.uf-hero {
+  position: relative;
+  background: var(--uf-black);
+  color: var(--uf-white);
+  text-align: center;
+  overflow: hidden;
+  padding-top: clamp(3.2rem, 7vw, 5.5rem);
+}
+.uf-hero__inner {
+  position: relative;
+  z-index: 2;
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 0 var(--uf-pad);
+}
+.uf-title {
+  font-size: clamp(2.5rem, 6.5vw, 4.5rem);
+  font-weight: 600;
+  line-height: 1.15;
+  letter-spacing: -0.042em;
+  margin: 0 0 1.1rem;
+}
+.uf-lede {
+  font-size: clamp(1.05rem, 1.8vw, 1.3rem);
+  line-height: 1.55;
+  color: #e9e9e9;
+  max-width: 720px;
+  margin: 0 auto 0.9rem;
+}
+.uf-triplet {
+  font-size: 15px;
+  color: var(--uf-mute-dark);
+  margin: 0 0 1.6rem;
+}
+.uf-hero__cta {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+/* ── The monolith scene: their real HD backdrop, faded into black ── */
+.uf-scene {
+  position: relative;
+  height: clamp(260px, 36vw, 430px);
+  margin-top: -1.5rem;
+  pointer-events: none;
+  overflow: hidden;
+}
+.uf-scene__img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 62%;
+}
+.uf-scene__floor {
+  position: absolute;
+  inset-inline: 0;
+  bottom: 0;
+  height: 24%;
+  background: linear-gradient(180deg, transparent, #000 92%);
+  z-index: 2;
+}
+.uf-scene::before {
+  /* soft top fade so the photo melts out of the black hero */
+  content: '';
+  position: absolute;
+  inset-inline: 0;
+  top: 0;
+  height: 22%;
+  background: linear-gradient(0deg, transparent, #000 90%);
+  z-index: 2;
+}
+.uf-scene--compact {
+  height: clamp(240px, 30vw, 380px);
+  margin-top: 0;
+  border-radius: 18px;
+}
+.uf-scene--compact .uf-scene__img {
+  object-position: center 58%;
+}
+
+/* ── Stack strip (their logo carousel slot) ────────────────── */
+.uf-strip {
+  position: relative;
+  z-index: 2;
+  background: var(--uf-black);
+  padding: 1.1rem var(--uf-pad) 2.2rem;
+}
+.uf-strip__row {
+  list-style: none;
+  margin: 0 auto;
+  padding: 0;
+  max-width: var(--uf-maxw);
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  column-gap: clamp(18px, 3vw, 40px);
+  row-gap: 10px;
+}
+.uf-strip__item {
+  color: #8a8a8a;
+  font-size: 14.5px;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+}
+
+/* ── Sections / headings ───────────────────────────────────── */
+.uf-section {
+  padding: clamp(3.4rem, 7vw, 5.6rem) 0;
+}
+.uf-section--light {
+  background: var(--uf-paper);
+  color: var(--uf-ink);
+}
+.uf-section--dark {
+  background: var(--uf-black);
+  color: var(--uf-white);
+}
+.uf-wrap {
+  max-width: var(--uf-maxw);
+  margin: 0 auto;
+  padding: 0 var(--uf-pad);
+}
+.uf-h2 {
+  font-size: clamp(1.9rem, 4vw, 2.9rem);
+  font-weight: 600;
+  line-height: 1.18;
+  letter-spacing: -0.035em;
+  margin: 0 0 0.6rem;
+}
+.uf-h2--light {
+  color: var(--uf-white);
+}
+.uf-h2--center {
+  text-align: center;
+}
+.uf-h2--grad {
+  background: var(--uf-grad);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  width: fit-content;
+}
+.uf-sub {
+  font-size: 1.05rem;
+  color: var(--uf-mute);
+  max-width: 640px;
+  margin: 0 0 2.4rem;
+}
+.uf-sub--light {
+  color: var(--uf-mute-dark);
+}
+.uf-sub--center {
+  margin-inline: auto;
+  text-align: center;
+}
+
+/* ── Stat cards ────────────────────────────────────────────── */
+.uf-stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px;
+  margin-bottom: 2.6rem;
+}
+.uf-stat {
+  background: var(--uf-white);
+  border: 1px solid var(--uf-line);
+  border-radius: var(--uf-radius);
+  padding: 24px 24px 20px;
+}
+.uf-stat__big {
+  font-size: clamp(2.2rem, 4vw, 3rem);
+  font-weight: 600;
+  letter-spacing: -0.03em;
+  line-height: 1;
+  margin: 0 0 0.5rem;
+}
+.uf-stat__unit {
+  font-size: 0.98rem;
+  font-weight: 500;
+  letter-spacing: 0;
+  margin-left: 8px;
+  color: var(--uf-ink);
+}
+.uf-stat__line {
+  color: var(--uf-mute);
+  font-size: 0.95rem;
+  margin: 0 0 1.1rem;
+  min-height: 2.9em;
+}
+.uf-stat__bar {
+  display: block;
+  width: 74px;
+  height: 3px;
+  border-radius: 2px;
+  background: var(--uf-grad);
+  margin-bottom: 0.55rem;
+}
+.uf-stat__src {
+  font-size: 12.5px;
+  font-weight: 600;
+  margin: 0;
+}
+
+/* ── Numbered trio ─────────────────────────────────────────── */
+.uf-trio {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px;
+}
+.uf-trio__card {
+  background: var(--uf-white);
+  border: 1px solid var(--uf-line);
+  border-radius: var(--uf-radius);
+  padding: 24px;
+}
+.uf-num {
+  display: inline-flex;
+  padding: 5px;
+  border-radius: 13px;
+  background:
+    linear-gradient(var(--uf-white), var(--uf-white)) padding-box,
+    var(--uf-grad) border-box;
+  border: 1.6px solid transparent;
+  margin-bottom: 14px;
+}
+.uf-num__dot {
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background: var(--uf-ink);
+  color: var(--uf-white);
+  font-size: 13.5px;
+  font-weight: 600;
+  display: grid;
+  place-items: center;
+}
+.uf-trio__h {
+  font-size: 1.15rem;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  margin: 0 0 0.4rem;
+}
+.uf-trio__p {
+  color: var(--uf-mute);
+  font-size: 0.95rem;
+  margin: 0;
+}
+
+/* ── Platform: pinned exploded stack ───────────────────────── */
+.uf-platform__pin {
+  padding: clamp(0.5rem, 2vw, 1.5rem) 0;
+}
+.uf-pill-badge {
+  display: inline-block;
+  border: 1px solid var(--uf-line-dark);
+  border-radius: 999px;
+  padding: 7px 16px;
+  font-size: 13.5px;
+  color: #dcdcdc;
+}
+.uf-platform__head {
+  text-align: center;
+  margin-bottom: 2.6rem;
+}
+.uf-platform__head .uf-pill-badge {
+  margin-bottom: 1.1rem;
+}
+.uf-platform__grid {
+  display: grid;
+  grid-template-columns: 1.15fr 1fr;
+  gap: clamp(2rem, 5vw, 4.5rem);
+  align-items: center;
+}
+
+.uf-stack3d {
+  perspective: 1100px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  padding: 1rem 0;
+}
+.uf-plate-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.uf-plate__label {
+  font-size: 12.5px;
+  color: #cfcfcf;
+  margin: 0 0 6px;
+}
+.uf-plate {
+  width: min(420px, 78%);
+  min-width: 300px;
+  border-radius: 18px;
+  background: linear-gradient(180deg, #161616, #0a0a0a);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  box-shadow:
+    0 22px 34px rgba(0, 0, 0, 0.55),
+    0 2px 10px rgba(120, 0, 255, 0.22),
+    0 6px 22px rgba(0, 197, 234, 0.1);
+  transform: rotateX(56deg);
+  transform-style: preserve-3d;
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  padding: 20px 16px;
+  position: relative;
+}
+.uf-plate::after {
+  content: '';
+  position: absolute;
+  left: 6%;
+  right: 6%;
+  bottom: -3px;
+  height: 3px;
+  border-radius: 3px;
+  background: var(--uf-grad);
+  filter: blur(2.5px);
+  opacity: 0.75;
+}
+.uf-plate__chip {
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  background: rgba(255, 255, 255, 0.04);
+  color: #e4e4e4;
+  border-radius: 10px;
+  font-size: 12px;
+  padding: 8px 10px;
+  white-space: nowrap;
+}
+
+.uf-platform__list {
+  display: flex;
+  flex-direction: column;
+  gap: 1.35rem;
+  align-items: flex-start;
+}
+.uf-feature__h {
+  font-size: 1.3rem;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  margin: 0 0 0.25rem;
+  color: var(--uf-white);
+}
+.uf-feature__p {
+  color: var(--uf-mute-dark);
+  font-size: 0.95rem;
+  margin: 0;
+  max-width: 40ch;
+}
+
+/* ── Work grid ─────────────────────────────────────────────── */
+.uf-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 14px;
+  margin-bottom: 2.6rem;
+}
+.uf-tile {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  background: var(--uf-white);
+  border: 1px solid var(--uf-line);
+  border-radius: var(--uf-radius);
+  padding: 22px 20px 18px;
+  text-decoration: none;
+  color: var(--uf-ink);
+  transition: transform 0.18s ease, box-shadow 0.18s ease;
+}
+a.uf-tile:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 14px 30px rgba(0, 0, 0, 0.09);
+}
+.uf-tile__bar {
+  width: 44px;
+  height: 3px;
+  border-radius: 2px;
+  background: var(--uf-grad);
+  margin-bottom: 14px;
+}
+.uf-tile__tag {
+  font-size: 11.5px;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--uf-mute);
+  margin-bottom: 6px;
+}
+.uf-tile__title {
+  font-size: 1.12rem;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  margin: 0 0 0.35rem;
+}
+.uf-tile__desc {
+  font-size: 0.9rem;
+  color: var(--uf-mute);
+  margin: 0 0 1rem;
+  flex-grow: 1;
+}
+.uf-tile__link {
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+.uf-tile--static {
+  background: #f1f1f1;
+}
+
+/* ── CV band ───────────────────────────────────────────────── */
+.uf-cv {
+  display: grid;
+  grid-template-columns: 1.3fr 1.3fr 0.8fr;
+  gap: 22px;
+  background: var(--uf-white);
+  border: 1px solid var(--uf-line);
+  border-radius: var(--uf-radius);
+  padding: 26px;
+}
+.uf-cv__h {
+  font-size: 0.85rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  margin: 0 0 0.6rem;
+}
+.uf-cv__list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  color: var(--uf-mute);
+  font-size: 0.92rem;
+}
+.uf-cv__note {
+  color: var(--uf-mute);
+  font-size: 0.92rem;
+  margin: 0 0 0.8rem;
+}
+
+/* ── Close ─────────────────────────────────────────────────── */
+.uf-close {
+  background: var(--uf-black);
+  color: var(--uf-white);
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+  gap: clamp(1rem, 3vw, 2.5rem);
+  padding: clamp(3rem, 6vw, 5rem) var(--uf-pad);
+  max-width: 100%;
+  overflow: hidden;
+}
+.uf-close__scene {
+  min-width: 0;
+}
+.uf-close__copy {
+  min-width: 0;
+  max-width: 560px;
+}
+.uf-close__sub {
+  color: var(--uf-mute-dark);
+  margin: 0.9rem 0 1.6rem;
+  max-width: 46ch;
+}
+.uf-close__cta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+/* ── Footer ────────────────────────────────────────────────── */
+.uf-footer {
+  background: var(--uf-coal);
+  color: #bdbdbd;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+.uf-footer__inner {
+  max-width: var(--uf-maxw);
+  margin: 0 auto;
+  padding: 26px var(--uf-pad) 30px;
+  display: flex;
+  align-items: baseline;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+.uf-footer__brand {
+  font-size: 19px;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  color: var(--uf-white);
+  white-space: nowrap;
+}
+.uf-footer__brand .uf-brand__for {
+  color: #8f8f8f;
+}
+.uf-footer__note {
+  font-size: 13px;
+  max-width: 52ch;
+}
+.uf-footer__meta {
+  margin-left: auto;
+  font-size: 13px;
+}
+
+/* ── Responsive ────────────────────────────────────────────── */
+@media (max-width: 1024px) {
+  .uf-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 900px) {
+  .uf-nav__links {
+    display: none;
+  }
+  .uf-nav__inner {
+    justify-content: space-between;
+  }
+  .uf-platform__grid {
+    grid-template-columns: 1fr;
+  }
+  .uf-plate {
+    transform: rotateX(48deg);
+  }
+  .uf-stats,
+  .uf-trio {
+    grid-template-columns: 1fr;
+  }
+  .uf-cv {
+    grid-template-columns: 1fr;
+  }
+  .uf-close {
+    grid-template-columns: 1fr;
+    text-align: center;
+  }
+  .uf-close__copy {
+    margin: 0 auto;
+  }
+  .uf-close__cta {
+    justify-content: center;
+  }
+  .uf-close__sub {
+    margin-inline: auto;
+  }
+}
+
+@media (max-width: 560px) {
+  .uf-grid {
+    grid-template-columns: 1fr;
+  }
+  .uf-plate {
+    min-width: 0;
+    width: 92%;
+  }
+  .uf-footer__meta {
+    margin-left: 0;
+  }
+}
+
+/* Reduced motion: everything static, labels visible. */
+@media (prefers-reduced-motion: reduce) {
+  .uf-btn,
+  a.uf-tile {
+    transition: none;
+  }
+}
