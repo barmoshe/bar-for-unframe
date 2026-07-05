@@ -210,7 +210,8 @@
 }
 .uf-hero__inner {
   position: relative;
-  z-index: 2;
+  /* above the scene image and its fade overlays (z-index 2) */
+  z-index: 3;
   max-width: 900px;
   margin: 0 auto;
   padding: 0 var(--uf-pad);
